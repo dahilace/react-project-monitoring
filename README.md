@@ -4,6 +4,7 @@
 Монорепозитиорий
 
 Это черновая версия fullstack приложения для мониторинга проектов.
+
 Frontend: React + Vite  
 Backend: Node.js + Express + PostgreSQL?
 
