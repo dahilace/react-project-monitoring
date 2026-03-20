@@ -12,6 +12,10 @@ const port = 3001,
 app.use(cors())
 app.use(express.json())
 
+const taskRoutes = require('./routes/tasks.routes')
+
+app.use('/api/tasks', taskRoutes)
+
 app.get('/api/health', async (req, res) => {
   try {
     const tasks = await prisma.task.findMany()
