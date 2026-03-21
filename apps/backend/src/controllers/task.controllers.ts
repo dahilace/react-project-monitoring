@@ -7,6 +7,7 @@ exports.getTasks = async (req, res) => {
     const tasks = await taskService.getAllTasks()
     res.json(tasks)
   } catch (e) {
+    console.error(e)
     res.staus(500).json({ error: 'Failed to fetch' })
   }
 }
@@ -16,6 +17,7 @@ exports.createTask = async (req, res) => {
     const task = await taskService.createTask(req.body)
     res.json(task)
   } catch (e) {
-    res.status(500).json({ error: 'Failet to create task' })
+    console.error(e)
+    res.status(500).json({ error: e.message })
   }
 }

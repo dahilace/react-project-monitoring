@@ -12,9 +12,11 @@ const port = 3001,
 app.use(cors())
 app.use(express.json())
 
-const taskRoutes = require('./routes/tasks.routes')
+const taskRoutes = require('./routes/tasks.routes'),
+  userRoutes = require('./routes/user.routes')
 
 app.use('/api/tasks', taskRoutes)
+app.use('/api/users', userRoutes)
 
 app.get('/api/health', async (req, res) => {
   try {
@@ -33,3 +35,24 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`server is running on ${port}`)
 })
+
+// app.get('/debug/users', async (req, res) => {
+//   const users = await prisma.user.findMany()
+//   res.json(users)
+// })
+
+// app.get('/debug/create-user', async (req, res) => {
+//   const user = await prisma.user.create({
+//     data: {
+//       name: "John",
+//       surname: null,
+//       fatherName: null,
+//       login: "john",
+//       password: "123",
+//       managerId: null,
+//       role: "worker"
+//     }
+//   })
+
+//   res.json(user)
+// })
