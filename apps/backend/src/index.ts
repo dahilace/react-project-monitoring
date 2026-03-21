@@ -12,8 +12,8 @@ const port = 3001,
 app.use(cors())
 app.use(express.json())
 
-const taskRoutes = require('./routes/tasks.routes'),
-  userRoutes = require('./routes/user.routes')
+const taskRoutes = require('./routes/tasks.route'),
+  userRoutes = require('./routes/user.route')
 
 app.use('/api/tasks', taskRoutes)
 app.use('/api/users', userRoutes)
