@@ -1,25 +1,38 @@
 const taskService = require('../services/tasks.service')
-const { createTaskSchema } = require('../validators/task.validator')
+const { createTaskSchema, updateTaskSchema } = require('../validators/task.validator')
 
 exports.getTasks = async (req, res) => {
   try {
-    const tasks = await taskService.getAllTasks()
-    res.json(tasks)
+    const user = req.user
+
+    const filters = {
+      status: req.query.status,
+      priority: req.query.priority,
+      search: req.query.search
+    }
+
+    const limit = Number(req.query.limit) || 10
+
+    const result = await taskService.getTasks(user, filters, {
+      limit
+    })
+
+    res.json(result)
   } catch (e) {
-    console.error(e) // dev
-    res.staus(500).json({ error: 'Failed to fetch' })
+    res.status(500).json({
+      error: 'Failed to fetch tasks',
+      message: e.message
+    })
   }
 }
 
 exports.createTask = async (req, res) => {
   try {
-    console.log(req.user) //dev
-    const parsed = createTaskSchema.parse(req.body)
-    const task = await taskService.createTask(parsed, req.user)
+    const parsedZ = createTaskSchema.parse(req.body)
+    const task = await taskService.createTask(parsedZ, req.user)
 
     res.status(201).json(task)
   } catch (e) {
-    console.error(e) // dev
     if (e.name === 'ZodError') {
       return res.status(400).json({
         error: 'Validation error',
@@ -29,6 +42,64 @@ exports.createTask = async (req, res) => {
 
     res.status(500).json({
       error: 'Failed to create task',
+      message: e.message
+    })
+  }
+}
+
+exports.updateTask = async (req, res) => {
+  try {
+    const taskId = Number(req.params.id)
+
+    const parsed = updateTaskSchema.parse(req.body)
+
+    const updatedTask = await taskService.updateTask(
+      taskId,
+      parsed,
+      req.user
+    )
+
+    res.json(updatedTask)
+  } catch (e) {
+    if (e.name === 'ZodError') {
+      return res.status(400).json({
+        error: 'Validation error',
+        details: e.errors
+      })
+    }
+
+    if (e.message === 'Forbidden') {
+      return res.status(403).json({ error: 'Forbidden' })
+    }
+
+    res.status(500).json({
+      error: 'Failed to update task',
+      message: e.message
+    })
+  }
+}
+
+exports.deleteTask = async (req, res) => {
+  try {
+    const taskId = Number(req.params.id)
+    const user = req.user
+
+    await taskService.deleteTask(taskId, user)
+
+    res.status(200).json({
+      message: 'Task deleted'
+    })
+  } catch (e) {
+    if (e.message === 'Forbidden') {
+      return res.status(403).json({ error: 'Forbidden' })
+    }
+
+    if (e.message === 'Task not found') {
+      return res.status(404).json({ error: 'Task not found' })
+    }
+
+    res.status(500).json({
+      error: 'Failed to delete task',
       message: e.message
     })
   }

@@ -8,6 +8,15 @@ const createTaskSchema = z.object({
   responsibleId: z.number().int()
 })
 
+const updateTaskSchema = z.object({
+  status: z.enum(['appointed', 'started', 'ended', 'declined']).optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  priority: z.enum(['standart', 'low', 'high']).optional(),
+  responsibleId: z.number().optional(),
+  dateOfEnd: z.string().datetime().optional().nullable()
+})
+
 module.exports = {
-  createTaskSchema
+  createTaskSchema, updateTaskSchema
 }

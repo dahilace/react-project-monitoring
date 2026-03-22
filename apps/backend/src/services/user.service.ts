@@ -21,7 +21,7 @@ exports.createUser = async (data) => {
       surname: data.surname || null,
       fatherName: data.fatherName || null,
       login: data.login,
-      password: hashedPassword, // 🔥
+      password: hashedPassword,
       role: data.role,
       managerId: data.managerId || null
     }
