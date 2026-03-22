@@ -1,5 +1,5 @@
 const taskService = require('../services/tasks.service')
-const { createTaskSchema } = require('../validators/task.validator')
+const { createTaskSchema, updateTaskSchema } = require('../validators/task.validator')
 
 exports.getTasks = async (req, res) => {
   try {
@@ -20,8 +20,8 @@ exports.getTasks = async (req, res) => {
 exports.createTask = async (req, res) => {
   try {
     console.log(req.user) //dev
-    const parsed = createTaskSchema.parse(req.body)
-    const task = await taskService.createTask(parsed, req.user)
+    const parsedZ = createTaskSchema.parse(req.body)
+    const task = await taskService.createTask(parsedZ, req.user)
 
     res.status(201).json(task)
   } catch (e) {
@@ -35,6 +35,40 @@ exports.createTask = async (req, res) => {
 
     res.status(500).json({
       error: 'Failed to create task',
+      message: e.message
+    })
+  }
+}
+
+exports.updateTask = async (req, res) => {
+  try {
+    const taskId = Number(req.params.id)
+
+    const parsed = updateTaskSchema.parse(req.body)
+
+    const updatedTask = await taskService.updateTask(
+      taskId,
+      parsed,
+      req.user
+    )
+
+    res.json(updatedTask)
+  } catch (e) {
+    console.error(e)
+
+    if (e.name === 'ZodError') {
+      return res.status(400).json({
+        error: 'Validation error',
+        details: e.errors
+      })
+    }
+
+    if (e.message === 'Forbidden') {
+      return res.status(403).json({ error: 'Forbidden' })
+    }
+
+    res.status(500).json({
+      error: 'Failed to update task',
       message: e.message
     })
   }
