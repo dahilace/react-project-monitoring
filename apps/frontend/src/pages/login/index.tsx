@@ -60,7 +60,7 @@ export const LoginPage = () => {
           {loading ? 'Loading...' : 'Login'}
         </AppButton>
       </form>
-      
+
       <div className="absolute bottom-4 left-4 text-sm bg-gray-100 p-3 rounded shadow">
         <p className="font-bold mb-1">Demo accounts:</p>
         <p>manager1 / 123</p>

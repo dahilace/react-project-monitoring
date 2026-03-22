@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom'
-import { AppHeader } from '@/widgets/header/AppHeader'
-import { AppFooter } from '@/widgets/footer/AppFooter'
+import { Outlet } from 'react-router-dom';
+import { AppHeader } from '@/widgets/header/AppHeader';
+import { AppFooter } from '@/widgets/footer/AppFooter';
 
 export const AppLayout = () => {
   return (
@@ -13,5 +13,5 @@ export const AppLayout = () => {
 
       <AppFooter />
     </div>
-  )
-}
+  );
+};

@@ -1,8 +1,8 @@
-import { createBrowserRouter } from 'react-router-dom'
-import { LoginPage } from '@/pages/login'
-import { TasksPage } from '@/pages/tasks'
-import { ProtectedRoute } from '@/shared/lib/ProtectedRoute'
-import { AppLayout } from '../layouts/AppLayout'
+import { createBrowserRouter } from 'react-router-dom';
+import { LoginPage } from '@/pages/login';
+import { TasksPage } from '@/pages/tasks';
+import { ProtectedRoute } from '@/shared/lib/ProtectedRoute';
+import { AppLayout } from '../layouts/AppLayout';
 
 export const router = createBrowserRouter([
   {
@@ -23,4 +23,4 @@ export const router = createBrowserRouter([
       },
     ],
   },
-])
+]);
