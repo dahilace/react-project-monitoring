@@ -1,12 +1,17 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
-exports.getAllTasks = async () => {
+exports.getTasks = async (user) => {
+  if (user.role === 'manager') {
+    return prisma.task.findMany()
+  }
   return prisma.task.findMany({
-    include: {
-      creator: true,
-      responsible: true,
-    },
+    where: {
+      OR: [
+        { creatorId: user.userId },
+        { responsibleId: user.userId }
+      ]
+    }
   })
 }
 

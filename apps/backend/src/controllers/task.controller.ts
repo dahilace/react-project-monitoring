@@ -3,11 +3,17 @@ const { createTaskSchema } = require('../validators/task.validator')
 
 exports.getTasks = async (req, res) => {
   try {
-    const tasks = await taskService.getAllTasks()
+    const user = req.user
+
+    const tasks = await taskService.getTasks(user)
+
     res.json(tasks)
   } catch (e) {
-    console.error(e) // dev
-    res.staus(500).json({ error: 'Failed to fetch' })
+    console.error(e)
+    res.status(500).json({
+      error: 'Failed to fetch tasks',
+      message: e.message
+    })
   }
 }
 
