@@ -29,7 +29,7 @@ exports.login = async (login, password) => {
       role: user.role
     },
     JWT_SECRET,
-    { expiresIn: '7d' }
+    { expiresIn: '1h' }
   )
 
   return { token }

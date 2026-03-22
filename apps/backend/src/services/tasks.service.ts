@@ -10,19 +10,17 @@ exports.getAllTasks = async () => {
   })
 }
 
-exports.createTask = async (data) => {
+exports.createTask = async (data, user) => {
   return prisma.task.create({
     data: {
       title: data.title,
       description: data.description,
-
       priority: data.priority,
       status: data.status,
-
-      creatorId: data.creatorId,
       responsibleId: data.responsibleId,
-
       dateOfEnd: data.dateOfEnd || null,
+
+      creatorId: user.userId,
     },
   })
 }

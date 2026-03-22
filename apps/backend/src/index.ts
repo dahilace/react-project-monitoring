@@ -29,7 +29,7 @@ app.get('/api/health', async (req, res) => {
   }
 })
 
-// Dev
+// //DEV
 if (process.env.NODE_ENV === 'development') {
   app.post('/debug/seed-users', async (req, res) => {
     try {
@@ -66,16 +66,6 @@ if (process.env.NODE_ENV === 'development') {
     }
   })
 }
-// Dev
-
-app.get('/', (req, res) => {
-  res.send('Hello user!')
-  console.log('Hello from user!')
-})
-
-app.listen(port, () => {
-  console.log(`server is running on ${port}`)
-})
 
 // app.get('/debug/users', async (req, res) => {
 //   const users = await prisma.user.findMany()
@@ -97,3 +87,14 @@ app.listen(port, () => {
 
 //   res.json(user)
 // })
+// //DEV
+
+app.get('/', (req, res) => {
+  res.send('Hello user!')
+  console.log('Hello from user!')
+})
+
+app.listen(port, () => {
+  console.log(`server is running on ${port}`)
+})
+
