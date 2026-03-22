@@ -88,3 +88,24 @@ exports.updateTask = async (taskId, data, user) => {
 
   throw new Error('Forbidden')
 }
+
+exports.deleteTask = async (taskId, user) => {
+  const task = await prisma.task.findUnique({
+    where: { id: taskId }
+  })
+
+  if (!task) {
+    throw new Error('Task not found')
+  }
+
+  const isCreator = task.creatorId === user.userId
+  const isAdmin = user.role === 'admin'
+
+  if (!isCreator && !isAdmin) {
+    throw new Error('Forbidden')
+  }
+
+  return prisma.task.delete({
+    where: { id: taskId }
+  })
+}

@@ -73,3 +73,32 @@ exports.updateTask = async (req, res) => {
     })
   }
 }
+
+exports.deleteTask = async (req, res) => {
+  try {
+    const taskId = Number(req.params.id)
+    const user = req.user
+
+    await taskService.deleteTask(taskId, user)
+
+    // res.status(204).send()
+    res.status(200).json({
+      message: 'Task deleted'
+    })
+  } catch (e) {
+    console.error(e)
+
+    if (e.message === 'Forbidden') {
+      return res.status(403).json({ error: 'Forbidden' })
+    }
+
+    if (e.message === 'Task not found') {
+      return res.status(404).json({ error: 'Task not found' })
+    }
+
+    res.status(500).json({
+      error: 'Failed to delete task',
+      message: e.message
+    })
+  }
+}
