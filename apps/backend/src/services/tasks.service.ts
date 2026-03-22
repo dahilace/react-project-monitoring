@@ -1,20 +1,70 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
-exports.getTasks = async (user) => {
-  if (user.role === 'manager') {
-    return prisma.task.findMany()
+exports.getTasks = async (user, filters, pagination) => {
+  const { limit } = pagination
+  const skip = 0
+
+  const where = {
+    AND: []
   }
-  return prisma.task.findMany({
-    where: {
+
+  if (user.role !== 'admin') {
+    where.AND.push({
       OR: [
         { creatorId: user.userId },
         { responsibleId: user.userId }
       ]
-    }
-  })
-}
+    })
+  }
 
+  if (filters.status) {
+    where.AND.push({ status: filters.status })
+  }
+
+  if (filters.priority) {
+    where.AND.push({ priority: filters.priority })
+  }
+
+  if (filters.search) {
+    where.AND.push({
+      OR: [
+        {
+          title: {
+            contains: filters.search,
+            mode: 'insensitive'
+          }
+        },
+        {
+          description: {
+            contains: filters.search,
+            mode: 'insensitive'
+          }
+        }
+      ]
+    })
+  }
+
+  const [tasks, total] = await Promise.all([
+    prisma.task.findMany({
+      where,
+      skip,
+      take: limit,
+      orderBy: {
+        dateOfCreation: 'desc'
+      }
+    }),
+    prisma.task.count({ where })
+  ])
+
+  return {
+    data: tasks,
+    meta: {
+      total,
+      limit
+    }
+  }
+}
 exports.createTask = async (data, user) => {
   return prisma.task.create({
     data: {

@@ -5,11 +5,20 @@ exports.getTasks = async (req, res) => {
   try {
     const user = req.user
 
-    const tasks = await taskService.getTasks(user)
+    const filters = {
+      status: req.query.status,
+      priority: req.query.priority,
+      search: req.query.search
+    }
 
-    res.json(tasks)
+    const limit = Number(req.query.limit) || 10
+
+    const result = await taskService.getTasks(user, filters, {
+      limit
+    })
+
+    res.json(result)
   } catch (e) {
-    console.error(e)
     res.status(500).json({
       error: 'Failed to fetch tasks',
       message: e.message
@@ -19,13 +28,11 @@ exports.getTasks = async (req, res) => {
 
 exports.createTask = async (req, res) => {
   try {
-    console.log(req.user) //dev
     const parsedZ = createTaskSchema.parse(req.body)
     const task = await taskService.createTask(parsedZ, req.user)
 
     res.status(201).json(task)
   } catch (e) {
-    console.error(e) // dev
     if (e.name === 'ZodError') {
       return res.status(400).json({
         error: 'Validation error',
@@ -54,8 +61,6 @@ exports.updateTask = async (req, res) => {
 
     res.json(updatedTask)
   } catch (e) {
-    console.error(e)
-
     if (e.name === 'ZodError') {
       return res.status(400).json({
         error: 'Validation error',
@@ -81,13 +86,10 @@ exports.deleteTask = async (req, res) => {
 
     await taskService.deleteTask(taskId, user)
 
-    // res.status(204).send()
     res.status(200).json({
       message: 'Task deleted'
     })
   } catch (e) {
-    console.error(e)
-
     if (e.message === 'Forbidden') {
       return res.status(403).json({ error: 'Forbidden' })
     }

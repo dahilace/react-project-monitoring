@@ -6,7 +6,6 @@ exports.login = async (req, res) => {
     const result = await authService.login(login, password)
     res.json(result)
   } catch (e) {
-    console.error(e)
     res.status(401).json({ error: e.message })
   }
 }
