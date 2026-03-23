@@ -1,13 +1,15 @@
 import { formatDate } from '@/shared/lib/FormatDate';
 import type { ITask } from '../types';
+import { AppButton } from '@/shared/ui/AppButton';
 
 type Props = {
   task: ITask;
+  onEdit?: (task: ITask) => void;
 };
 
 const tagStyles = `px-2 py-1 rounded`;
 
-export const TaskItem = ({ task }: Props) => {
+export const TaskItem = ({ task, onEdit }: Props) => {
   return (
     <div
       className={`border p-4 rounded shadow flex flex-col gap-1 bg-gray-100`}
@@ -39,7 +41,10 @@ export const TaskItem = ({ task }: Props) => {
           </span>
         </div>
 
-        <span>Создана: {formatDate(task.dateOfCreation)}</span>
+        <div>
+          <AppButton onClick={() => onEdit?.(task)}>Edit</AppButton>
+          <span>Создана: {formatDate(task.dateOfCreation)}</span>
+        </div>
       </div>
     </div>
   );
