@@ -40,18 +40,23 @@ export const LoginPage = () => {
         onSubmit={handleSubmit}
         className="w-80 p-6 border rounded flex flex-col gap-4"
       >
-        <h1 className="text-xl font-bold text-center">Login</h1>
+        <h1 className="text-xl font-bold text-center">Авторизация</h1>
 
-        <AppInput value={login} onChange={(e) => setLogin(e.target.value)}>
-          Login
+        <AppInput
+          placeholder="Логин"
+          value={login}
+          onChange={(e) => setLogin(e.target.value.trim())}
+        >
+          Логин
         </AppInput>
 
         <AppInput
+          placeholder="Пароль"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value.trim())}
         >
-          Password
+          Пароль
         </AppInput>
 
         {error && <span className="text-red-500 text-sm">{error}</span>}
@@ -60,12 +65,15 @@ export const LoginPage = () => {
           {loading ? 'Loading...' : 'Login'}
         </AppButton>
       </form>
-      
+
       <div className="absolute bottom-4 left-4 text-sm bg-gray-100 p-3 rounded shadow">
-        <p className="font-bold mb-1">Demo accounts:</p>
+        <p className="font-bold mb-1">Демо аккауеты:</p>
         <p>manager1 / 123</p>
         <p>worker1 / 123</p>
         <p>worker2 / 123</p>
+        <hr />
+        <p>manager2 / 123</p>
+        <p>worker3 / 123</p>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ export const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('dahilace-token')
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
@@ -13,3 +13,5 @@ api.interceptors.request.use((config) => {
 
   return config
 })
+
+export const getMe = () => api.get('/auth/me')
