@@ -2,10 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { AppButton } from '@/shared/ui/AppButton';
 
 type Props = {
+  user: {
+    name: string;
+    login: string;
+  } | null;
   onCreateClick?: () => void;
 };
 
-export const AppHeader = ({ onCreateClick }: Props) => {
+export const AppHeader = ({ onCreateClick, user }: Props) => {
   const navigate = useNavigate();
   function handlerLogOut() {
     localStorage.removeItem('dahilace-token');
@@ -17,7 +21,14 @@ export const AppHeader = ({ onCreateClick }: Props) => {
         <AppButton onClick={handlerLogOut} variant="danger">
           Logout
         </AppButton>
-        <h1>I am header</h1>
+
+        {user ? (
+          <p>
+            Hello {user.name} | {user.login}
+          </p>
+        ) : (
+          <p>I am Header</p>
+        )}
         <AppButton onClick={onCreateClick}>Create Task</AppButton>
       </div>
     </header>
