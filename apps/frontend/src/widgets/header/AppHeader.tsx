@@ -1,16 +1,25 @@
-import { useNavigate } from "react-router-dom"
-import { AppButton } from "@/shared/ui/AppButton"
+import { useNavigate } from 'react-router-dom';
+import { AppButton } from '@/shared/ui/AppButton';
 
-export const AppHeader = () => {
-  const navigate = useNavigate()
+type Props = {
+  onCreateClick?: () => void;
+};
+
+export const AppHeader = ({ onCreateClick }: Props) => {
+  const navigate = useNavigate();
   function handlerLogOut() {
-    localStorage.removeItem('dahilace-token')
-    navigate('/login')
+    localStorage.removeItem('dahilace-token');
+    navigate('/login');
   }
   return (
     <header className="p-4 bg-gray-700 text-white">
-      <h1>I am header</h1>
-      <AppButton onClick={handlerLogOut} variant="danger">Logout</AppButton>
+      <div className="flex justify-between items-center max-w-300 mx-auto">
+        <AppButton onClick={handlerLogOut} variant="danger">
+          Logout
+        </AppButton>
+        <h1>I am header</h1>
+        <AppButton onClick={onCreateClick}>Create Task</AppButton>
+      </div>
     </header>
-  )
-}
+  );
+};

@@ -2,23 +2,15 @@ import { useEffect, useState } from 'react';
 import { api } from '@/shared/api/axios';
 import type { ITask } from '@/entities/task/types';
 import { TaskItem } from '@/entities/task/ui/TaskItem';
-import { AppModal } from '@/shared/ui/AppModal';
-import { AppButton } from '@/shared/ui/AppButton';
-import { TaskForm } from '@/features/task/ui/TaskForm';
+
+import { useOutletContext } from 'react-router-dom';
 
 export const TasksPage = () => {
+  const { onEdit } = useOutletContext<{ onEdit: (task: ITask) => void }>();
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [metaTotal, setMetaTotal] = useState<number>(0);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
-  const [isEditOpen, setIsEditOpen] = useState(false);
-
-  const handleEdit = (task: ITask) => {
-    setSelectedTask(task);
-    setIsEditOpen(true);
-  };
 
   const fetchTasks = async () => {
     try {
@@ -45,9 +37,6 @@ export const TasksPage = () => {
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-4">
-      <AppButton className="self-start" onClick={() => setIsModalOpen(true)}>
-        Create Task
-      </AppButton>
       <h1 className="text-2xl font-bold">
         {'Tasks' + (metaTotal ? `: ${metaTotal}` : '')}
       </h1>
@@ -55,28 +44,9 @@ export const TasksPage = () => {
         <p>No tasks</p>
       ) : (
         tasks.map((task) => (
-          <TaskItem key={task.id} task={task} onEdit={handleEdit}></TaskItem>
+          <TaskItem key={task.id} task={task} onEdit={onEdit}></TaskItem>
         ))
       )}
-
-      {selectedTask && (
-        <AppModal isOpen={isEditOpen} onClose={() => setIsEditOpen(false)}>
-          <TaskForm
-            mode="edit"
-            initialData={selectedTask}
-            onSuccess={fetchTasks}
-            onClose={() => setIsEditOpen(false)}
-          />
-        </AppModal>
-      )}
-
-      <AppModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <TaskForm
-          mode="create"
-          onSuccess={fetchTasks}
-          onClose={() => setIsModalOpen(false)}
-        />
-      </AppModal>
     </div>
   );
 };

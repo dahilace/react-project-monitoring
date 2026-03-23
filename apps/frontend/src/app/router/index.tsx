@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { LoginPage } from '@/pages/login';
 import { TasksPage } from '@/pages/tasks';
 import { ProtectedRoute } from '@/shared/lib/ProtectedRoute';
-import { AppLayout } from '../layouts/AppLayout';
+import { App } from '../App';
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: (
       <ProtectedRoute>
-        <AppLayout />
+        <App />
       </ProtectedRoute>
     ),
     children: [
