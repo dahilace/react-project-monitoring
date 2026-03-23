@@ -1,3 +1,5 @@
+import { workers } from "node:cluster"
+
 const express = require('express')
 const router = express.Router()
 const authMiddleware = require('../middleware/auth.middleware')
@@ -16,7 +18,8 @@ router.get('/me', authMiddleware, async (req, res) => {
       id: true,
       name: true,
       login: true,
-      role: true
+      role: true,
+      workers: true
     }
   })
 
