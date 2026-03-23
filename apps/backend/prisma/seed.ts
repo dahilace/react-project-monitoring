@@ -13,7 +13,7 @@ async function main() {
 
   const manager1 = await prisma.user.create({
     data: {
-      name: 'Manager',
+      name: 'Manager1',
       surname: 'One',
       login: 'manager1',
       password: await hashPassword('123'),
@@ -23,7 +23,7 @@ async function main() {
 
   const worker11 = await prisma.user.create({
     data: {
-      name: 'Worker',
+      name: 'Worker11',
       surname: 'One',
       login: 'worker1',
       password: await hashPassword('123'),
@@ -34,7 +34,7 @@ async function main() {
 
   const worker12 = await prisma.user.create({
     data: {
-      name: 'Worker',
+      name: 'Worker12',
       surname: 'Two',
       login: 'worker2',
       password: await hashPassword('123'),
@@ -45,7 +45,7 @@ async function main() {
 
   const manager2 = await prisma.user.create({
     data: {
-      name: 'Manager',
+      name: 'Manager2',
       surname: 'Two',
       login: 'manager2',
       password: await hashPassword('123'),
@@ -55,7 +55,7 @@ async function main() {
 
   const worker21 = await prisma.user.create({
     data: {
-      name: 'Worker',
+      name: 'Worker21',
       surname: 'Three',
       login: 'worker3',
       password: await hashPassword('123'),
