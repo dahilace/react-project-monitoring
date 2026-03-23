@@ -21,7 +21,7 @@ export const App = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative">
       <AppHeader onCreateClick={handleCreate} />
 
       <main className="flex-1 p-4">
