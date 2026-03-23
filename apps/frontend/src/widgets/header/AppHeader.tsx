@@ -12,7 +12,7 @@ export const AppHeader = ({ onCreateClick }: Props) => {
     navigate('/login');
   }
   return (
-    <header className="p-4 bg-gray-700 text-white">
+    <header className="p-4 bg-gray-700 text-white sticky top-0 z-100">
       <div className="flex justify-between items-center max-w-300 mx-auto">
         <AppButton onClick={handlerLogOut} variant="danger">
           Logout
