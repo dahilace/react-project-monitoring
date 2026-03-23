@@ -55,6 +55,7 @@ export const LoginPage = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value.trim())}
+          onChange={(e) => setPassword(e.target.value.trim())}
         >
           Пароль
         </AppInput>

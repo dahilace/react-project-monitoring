@@ -4,6 +4,7 @@ type TaskStatus = 'appointed' | 'started' | 'ended' | 'declined'
 
 
 export interface IUser {
+  id?: number
   name: string
   surname: string | null
   fatherName: string | null
@@ -14,6 +15,7 @@ export interface IUser {
 }
 
 export interface ITask {
+  id?: number
   title: string
   description: string
   dateOfEnd: Date | null
