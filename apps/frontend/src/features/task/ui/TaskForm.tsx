@@ -79,42 +79,42 @@ export const TaskForm = ({ mode, initialData, onSuccess, onClose }: Props) => {
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <h2 className="text-lg font-semibold">
         {' '}
-        {mode === 'create' ? 'Create Task' : 'Edit Task'}
+        {mode === 'create' ? 'Создать задачу' : 'Изменить задачу'}
       </h2>
 
       <AppInput
-        placeholder="Заголовок"
+        placeholder="Заголовок..."
         required
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       >
-        Title
+        Заголовок задачи
       </AppInput>
 
       <AppInput
         required
-        placeholder="Описание"
+        placeholder="Описание..."
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       >
-        Description
+        Описание задачи
       </AppInput>
 
       <AppSelect
-        label="Priority"
+        label="Приоритет задачи"
         value={priority}
         onChange={(e) => setPriority(e.target.value as TaskPriority)}
         options={taskPriorityOptions}
       />
       <AppSelect
-        label="Status"
+        label="Статус задачи"
         value={status}
         onChange={(e) => setStatus(e.target.value as TaskStatus)}
         options={taskStatusOptions}
       />
 
       <AppButton type="submit">
-        {mode === 'create' ? 'Create' : 'Update'}
+        {mode === 'create' ? 'Создать' : 'Обновить'}
       </AppButton>
     </form>
   );

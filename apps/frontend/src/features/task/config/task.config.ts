@@ -1,12 +1,12 @@
 export const taskPriorityOptions = [
-  { value: 'Low', label: 'Low' },
-  { value: 'Standart', label: 'Standart' },
-  { value: 'High', label: 'High' },
+  { value: 'Low', label: 'Низкий' },
+  { value: 'Standart', label: 'Средний' },
+  { value: 'High', label: 'Высокий' },
 ];
 
 export const taskStatusOptions = [
-  { value: 'Appointed', label: 'Appointed' },
-  { value: 'Started', label: 'Started' },
-  { value: 'Ended', label: 'Ended' },
-  { value: 'Declined', label: 'Declined' },
+  { value: 'Appointed', label: 'Назначена' },
+  { value: 'Started', label: 'Начата' },
+  { value: 'Ended', label: 'Закончена' },
+  { value: 'Declined', label: 'Отклонена' },
 ];

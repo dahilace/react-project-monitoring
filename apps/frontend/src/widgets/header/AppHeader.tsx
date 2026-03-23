@@ -19,17 +19,17 @@ export const AppHeader = ({ onCreateClick, user }: Props) => {
     <header className="p-4 bg-gray-700 text-white sticky top-0 z-100">
       <div className="flex justify-between items-center max-w-300 mx-auto">
         <AppButton onClick={handlerLogOut} variant="danger">
-          Logout
+          Выйти
         </AppButton>
 
         {user ? (
           <p>
-            Hello {user.name} | {user.login}
+            Привет {user.name} | {user.login}
           </p>
         ) : (
-          <p>I am Header</p>
+          <p>Я хедер!</p>
         )}
-        <AppButton onClick={onCreateClick}>Create Task</AppButton>
+        <AppButton onClick={onCreateClick}>Создать задачу</AppButton>
       </div>
     </header>
   );

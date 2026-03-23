@@ -31,17 +31,17 @@ export const TasksPage = () => {
     fetchTasks();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>Загрузка...</div>;
 
   if (error) return <div className="text-red-500">{error}</div>;
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-4">
       <h1 className="text-2xl font-bold">
-        {'Tasks' + (metaTotal ? `: ${metaTotal}` : '')}
+        {'Задачи' + (metaTotal ? `: ${metaTotal}` : '')}
       </h1>
       {tasks.length === 0 ? (
-        <p>No tasks</p>
+        <p>Нет задач</p>
       ) : (
         tasks.map((task) => (
           <TaskItem key={task.id} task={task} onEdit={onEdit}></TaskItem>

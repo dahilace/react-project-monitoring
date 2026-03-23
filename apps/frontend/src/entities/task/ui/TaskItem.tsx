@@ -42,7 +42,7 @@ export const TaskItem = ({ task, onEdit }: Props) => {
         </div>
 
         <div>
-          <AppButton onClick={() => onEdit?.(task)}>Edit</AppButton>
+          <AppButton onClick={() => onEdit?.(task)}>Изменить</AppButton>
           <span>Создана: {formatDate(task.dateOfCreation)}</span>
         </div>
       </div>
