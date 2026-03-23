@@ -4,7 +4,7 @@ import type { ITask } from '@/entities/task/types';
 import { TaskItem } from '@/entities/task/ui/TaskItem';
 import { AppModal } from '@/shared/ui/AppModal';
 import { AppButton } from '@/shared/ui/AppButton';
-import { CreateTaskForm } from '@/features/task/ui/TaskCreateForm';
+import { CreateTaskForm } from '@/features/task/ui/TaskForm';
 
 export const TasksPage = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);

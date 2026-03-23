@@ -3,8 +3,9 @@ import axios from 'axios';
 import { AppInput } from '@/shared/ui/AppInput';
 import { AppButton } from '@/shared/ui/AppButton';
 import { AppSelect } from '@/shared/ui/AppSelect';
-import type { TaskPriority } from '@/entities/task/types';
+import type { TaskPriority, TaskStatus } from '@/entities/task/types';
 import { taskPriorityOptions } from '../config/task.config';
+import { taskStatusOptions } from '../config/task.config';
 
 type Props = {
   onSuccess?: () => void;
@@ -15,6 +16,7 @@ export const CreateTaskForm = ({ onSuccess, onClose }: Props) => {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [priority, setPriority] = useState<TaskPriority>('standart');
+  const [status, setStatus] = useState<TaskStatus>('appointed');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ export const CreateTaskForm = ({ onSuccess, onClose }: Props) => {
         title,
         description,
         priority,
-        status: 'appointed',
+        status,
         responsibleId: 1,
       },
       {
@@ -45,11 +47,18 @@ export const CreateTaskForm = ({ onSuccess, onClose }: Props) => {
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <h2 className="text-lg font-semibold">Create Task</h2>
 
-      <AppInput value={title} onChange={(e) => setTitle(e.target.value)}>
+      <AppInput
+        placeholder="Заголовок"
+        required
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      >
         Title
       </AppInput>
 
       <AppInput
+        required
+        placeholder="Описание"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       >
@@ -61,6 +70,12 @@ export const CreateTaskForm = ({ onSuccess, onClose }: Props) => {
         value={priority}
         onChange={(e) => setPriority(e.target.value)}
         options={taskPriorityOptions}
+      />
+      <AppSelect
+        label="Status"
+        value={status}
+        onChange={(e) => setStatus(e.target.value)}
+        options={taskStatusOptions}
       />
 
       <AppButton type="submit">Create</AppButton>
