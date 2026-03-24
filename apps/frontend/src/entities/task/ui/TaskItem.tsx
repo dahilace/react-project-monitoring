@@ -52,16 +52,16 @@ export const TaskItem = ({ task, onEdit, li }: Props) => {
           </AppTag>
         </div>
 
-        <div className="flex flex-col items-end">
-          <p className="text-sm">id:{task.id}</p>
+        <div className="flex flex-col gap-2 items-end">
+          <p className="text-sm">id Задачи: {task.id}</p>
           <p className="flex flex-wrap justify-end">
             <span>Создана:&nbsp;</span>
             <span className="text-nowrap">
-              {formatDate(task.dateOfCreation, 'ui')} | {task.creatorId}
+              {formatDate(task.dateOfCreation, 'ui')} | {task.creator.name}
             </span>
           </p>
 
-          <AppTag>Ответств.: {task.responsibleId}</AppTag>
+          <AppTag>Ответств.: {task.responsible.name}</AppTag>
         </div>
       </div>
     </Component>

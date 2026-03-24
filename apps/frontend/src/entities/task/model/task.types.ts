@@ -1,3 +1,5 @@
+import type { IUser } from "@/entities/user/model/user.types"
+
 export type TaskPriority = 'standart' | 'high' | 'low'
 export type TaskStatus = 'appointed' | 'started' | 'ended' | 'declined'
 
@@ -10,8 +12,8 @@ export interface ITask {
   dateOfUpdate: Date | null
   priority: TaskPriority
   status: TaskStatus
-  creator: string
+  creator: IUser
   creatorId: number
-  responsible: string
+  responsible: IUser
   responsibleId: number
 }
