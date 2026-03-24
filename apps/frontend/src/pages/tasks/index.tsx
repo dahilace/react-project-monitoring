@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from '@/shared/api/axios';
-import type { ITask } from '@/entities/task/types';
+import type { ITask } from '@/entities/task/model/task.types';
 import { TaskItem } from '@/entities/task/ui/TaskItem';
 
 import { useOutletContext } from 'react-router-dom';

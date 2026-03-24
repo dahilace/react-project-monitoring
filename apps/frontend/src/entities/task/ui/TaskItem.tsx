@@ -1,5 +1,5 @@
 import { formatDate } from '@/shared/lib/FormatDate';
-import type { ITask } from '../types';
+import type { ITask } from '../model/task.types';
 import { AppButton } from '@/shared/ui/AppButton';
 
 type Props = {

@@ -3,11 +3,16 @@ import axios from 'axios';
 import { AppInput } from '@/shared/ui/AppInput';
 import { AppButton } from '@/shared/ui/AppButton';
 import { AppSelect } from '@/shared/ui/AppSelect';
-import type { TaskPriority, TaskStatus } from '@/entities/task/types';
+import type {
+  TaskPriority,
+  TaskStatus,
+} from '@/entities/task/model/task.types';
 import { taskPriorityOptions } from '../config/task.config';
 import { taskStatusOptions } from '../config/task.config';
-import type { ITask } from '@/entities/task/types';
 import { formatDate } from '@/shared/lib/FormatDate';
+
+import type { IUser, UserRole } from '@/entities/user/model/user.types';
+import type { ITask } from '@/entities/task/model/task.types';
 
 type Props = {
   mode: 'create' | 'edit';
@@ -17,9 +22,9 @@ type Props = {
   user: {
     name: string;
     login: string;
-    role: string;
+    role: UserRole;
     id: number;
-    workers: any[];
+    workers: IUser[];
   } | null;
 };
 
@@ -145,14 +150,16 @@ export const TaskForm = ({
         Дата окончания
       </AppInput>
 
-      {user?.role === 'manager' && (
+      {user?.role === 'manager' && user.workers?.length && (
         <AppSelect
           label="Ответственный"
           value={responsibleId || ''}
           onChange={(e) => setResponsibleId(Number(e.target.value))}
-          options={user.workers.map((el) =>
-            Object.assign({ value: el.id.toString() }, { label: el.name }),
-          )}
+          options={(user.workers ?? [])
+            .concat(user)
+            .map((el) =>
+              Object.assign({ value: el.id.toString() }, { label: el.name }),
+            )}
         />
       )}
 
