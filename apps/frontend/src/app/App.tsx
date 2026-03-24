@@ -14,10 +14,14 @@ export const App = () => {
   const [user, setUser] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
+  const [refreshTasks, setRefreshTasks] = useState<(() => void) | null>(null);
 
   useEffect(() => {
     getMe()
-      .then((res) => setUser(res.data))
+      .then((res) => {
+        console.log(res.data);
+        setUser(res.data);
+      })
       .catch(() => {
         localStorage.removeItem('dahilace-token');
       });
@@ -38,16 +42,20 @@ export const App = () => {
       <AppHeader user={user} onCreateClick={handleCreate} />
 
       <main className="flex-1 p-4">
-        <Outlet context={{ onEdit: handleEdit }} />
+        <Outlet context={{ onEdit: handleEdit, setRefreshTasks }} />
       </main>
 
       <AppFooter />
 
       <AppModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <TaskForm
+          user={user}
           mode={selectedTask ? 'edit' : 'create'}
           initialData={selectedTask || undefined}
-          onSuccess={() => setIsModalOpen(false)}
+          onSuccess={() => {
+            refreshTasks?.();
+            setIsModalOpen(false);
+          }}
           onClose={() => setIsModalOpen(false)}
         />
       </AppModal>

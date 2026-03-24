@@ -6,7 +6,11 @@ import { TaskItem } from '@/entities/task/ui/TaskItem';
 import { useOutletContext } from 'react-router-dom';
 
 export const TasksPage = () => {
-  const { onEdit } = useOutletContext<{ onEdit: (task: ITask) => void }>();
+  const { onEdit, setRefreshTasks } = useOutletContext<{
+    onEdit: (task: ITask) => void;
+    setRefreshTasks: (fn: () => void) => void;
+  }>();
+
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -16,11 +20,9 @@ export const TasksPage = () => {
     try {
       const res = await api.get('/tasks');
       const data = res.data;
-      console.log(data); //dev
       setTasks(data.data);
       setMetaTotal(data.meta.total);
     } catch (e: any) {
-      console.log(e); //dev
       setError('Failed to load tasks');
     } finally {
       setLoading(false);
@@ -29,6 +31,7 @@ export const TasksPage = () => {
 
   useEffect(() => {
     fetchTasks();
+    setRefreshTasks(() => fetchTasks);
   }, []);
 
   if (loading) return <div>Загрузка...</div>;

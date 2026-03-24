@@ -11,5 +11,7 @@ export interface ITask {
   priority: TaskPriority
   status: TaskStatus
   creator: string
+  creatorId: number
   responsible: string
+  responsibleId: number
 }

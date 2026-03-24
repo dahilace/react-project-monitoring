@@ -15,3 +15,4 @@ api.interceptors.request.use((config) => {
 })
 
 export const getMe = () => api.get('/auth/me')
+export const getUsers = () => api.get('/users')

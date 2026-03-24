@@ -9,7 +9,7 @@ type Option = {
 type Props = SelectHTMLAttributes<HTMLSelectElement> & {
   label?: string;
   error?: string;
-  options: Option[];
+  options?: Option[];
 };
 
 export const AppSelect = forwardRef<HTMLSelectElement, Props>(
@@ -25,7 +25,7 @@ export const AppSelect = forwardRef<HTMLSelectElement, Props>(
           } ${className}`}
           {...props}
         >
-          {options.map((opt) => (
+          {options?.map((opt) => (
             <option
               key={opt.value.toLowerCase()}
               value={opt.value.toLowerCase()}
