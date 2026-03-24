@@ -90,7 +90,7 @@ export const TaskForm = ({
         placeholder="Заголовок..."
         required
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => setTitle(e.target.value.trim())}
       >
         Заголовок задачи
       </AppInput>
@@ -100,7 +100,7 @@ export const TaskForm = ({
         required
         placeholder="Описание..."
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(e) => setDescription(e.target.value.trim())}
       >
         Описание задачи
       </AppInput>
