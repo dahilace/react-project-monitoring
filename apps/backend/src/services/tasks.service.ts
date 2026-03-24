@@ -92,7 +92,7 @@ exports.createTask = async (data, user) => {
       priority: data.priority,
       status: data.status,
       responsibleId: data.responsibleId,
-      dateOfEnd: data.dateOfEnd,
+      dateOfEnd: data.dateOfEnd ? new Date(data.dateOfEnd) : null,
       creatorId: user.userId,
     },
   })
