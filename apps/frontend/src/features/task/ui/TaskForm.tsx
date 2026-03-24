@@ -39,18 +39,20 @@ export const TaskForm = ({
   const [description, setDescription] = useState<string>('');
   const [priority, setPriority] = useState<TaskPriority>('standart');
   const [status, setStatus] = useState<TaskStatus>('appointed');
-  const [responsibleId, setResponsibleId] = useState<number | null>(null);
+  const [responsibleId, setResponsibleId] = useState<number | null>(
+    user?.role ? user.id : null,
+  );
   const [dateOfEnd, setDateOfEnd] = useState<string | null>('');
 
-  if (!user) return
-  
+  if (!user) return;
+
   useEffect(() => {
     if (!initialData) return;
     setTitle(initialData.title);
     setDescription(initialData.description);
     setStatus(initialData.status);
     setPriority(initialData.priority);
-    setResponsibleId(initialData.responsibleId);
+    setResponsibleId(initialData.responsibleId || user.id);
     setDateOfEnd(
       initialData.dateOfEnd !== null ? formatDate(initialData.dateOfEnd) : '',
     );
@@ -125,10 +127,10 @@ export const TaskForm = ({
       {user?.role === 'manager' && user.workers?.length && (
         <AppSelect
           label="Ответственный"
-          value={responsibleId || ''}
+          value={responsibleId || user.id}
           onChange={(e) => setResponsibleId(Number(e.target.value))}
-          options={(user.workers ?? [])
-            .concat(user)
+          options={[user]
+            .concat(user.workers ?? [])
             .map((el) =>
               Object.assign({ value: el.id.toString() }, { label: el.name }),
             )}
