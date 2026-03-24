@@ -1,4 +1,5 @@
 import { formatDate } from '@/shared/lib/FormatDate';
+import { isDateMoreThenNow } from '@/shared/lib/isDateMoreThanNow';
 import type { ITask } from '../model/task.types';
 import { AppButton } from '@/shared/ui/AppButton';
 
@@ -15,7 +16,9 @@ export const TaskItem = ({ task, onEdit }: Props) => {
       className={`border p-4 rounded shadow flex flex-col gap-1 bg-gray-100`}
     >
       <div className="flex justify-between gap-2">
-        <div className="flex items-center gap-2">
+        <div
+          className={`flex items-center gap-2 ${task.status === 'ended' ? 'text-green-500' : isDateMoreThenNow(task.dateOfEnd) ? 'text-red-500' : 'text-gray-500'}`}
+        >
           <h2 className="font-semibold">{task.title}</h2>|
           <span>
             Дата окончания:{' '}
