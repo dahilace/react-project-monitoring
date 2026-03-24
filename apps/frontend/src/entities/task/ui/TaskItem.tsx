@@ -11,9 +11,10 @@ type Props = {
   li?: boolean;
 };
 
-export const TaskItem = ({ task, onEdit }: Props) => {
+export const TaskItem = ({ task, onEdit, li }: Props) => {
+  const Component = li ? 'li' : 'div';
   return (
-    <div
+    <Component
       onClick={() => {
         if (!window.getSelection()?.toString()) onEdit?.(task);
       }}
@@ -52,6 +53,6 @@ export const TaskItem = ({ task, onEdit }: Props) => {
           <AppTag>Ответственный: {task.responsibleId}</AppTag>
         </div>
       </div>
-    </div>
+    </Component>
   );
 };

@@ -47,7 +47,7 @@ export const TasksPage = () => {
         <p>Нет задач</p>
       ) : (
         tasks.map((task) => (
-          <TaskItem key={task.id} task={task} onEdit={onEdit}></TaskItem>
+          <TaskItem li key={task.id} task={task} onEdit={onEdit}></TaskItem>
         ))
       )}
     </div>
