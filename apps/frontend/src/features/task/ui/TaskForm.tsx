@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { AppInput } from '@/shared/ui/AppInput';
 import { AppButton } from '@/shared/ui/AppButton';
 import { AppSelect } from '@/shared/ui/AppSelect';
@@ -10,6 +9,7 @@ import type {
 import { taskPriorityOptions } from '../config/task.config';
 import { taskStatusOptions } from '../config/task.config';
 import { formatDate } from '@/shared/lib/FormatDate';
+import { taskApi } from '../api/task.api';
 
 import type { IUser, UserRole } from '@/entities/user/model/user.types';
 import type { ITask } from '@/entities/task/model/task.types';
@@ -42,6 +42,8 @@ export const TaskForm = ({
   const [responsibleId, setResponsibleId] = useState<number | null>(null);
   const [dateOfEnd, setDateOfEnd] = useState<string | null>('');
 
+  if (!user) return
+  
   useEffect(() => {
     if (!initialData) return;
     setTitle(initialData.title);
@@ -57,45 +59,17 @@ export const TaskForm = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const token = localStorage.getItem('dahilace-token');
-
-    if (mode === 'create') {
-      await axios.post(
-        'http://localhost:3001/api/tasks',
-        {
-          title,
-          description,
-          priority,
-          status,
-          dateOfEnd: dateOfEnd ? new Date(dateOfEnd) : null,
-          responsibleId: user?.role === 'worker' ? user.id : responsibleId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-    }
-
-    if (mode === 'edit' && initialData?.id) {
-      await axios.patch(
-        `http://localhost:3001/api/tasks/${initialData.id}`,
-        {
-          title,
-          description,
-          status,
-          priority,
-          dateOfEnd: dateOfEnd ? new Date(dateOfEnd) : null,
-          responsibleId: user?.role === 'worker' ? user.id : responsibleId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-    }
+    await taskApi(
+      mode,
+      title,
+      description,
+      priority,
+      status,
+      responsibleId,
+      dateOfEnd,
+      user,
+      initialData,
+    );
 
     onSuccess?.();
     onClose?.();
@@ -103,10 +77,9 @@ export const TaskForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-      <h2 className="text-lg font-semibold">
-        {' '}
+      <p className="text-lg font-semibold">
         {mode === 'create' ? 'Создать задачу' : 'Изменить задачу'}
-      </h2>
+      </p>
 
       <AppInput
         placeholder="Заголовок..."
