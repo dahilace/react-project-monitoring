@@ -22,7 +22,7 @@ export const AppModal = ({ isOpen, onClose, children }: Props) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center"
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-1000"
       onClick={onClose}
     >
       <div

@@ -19,7 +19,7 @@ export const AppTag = ({
 
   return (
     <span
-      className={`px-2 py-1 rounded ${styles[variant]} ${className}`}
+      className={`px-2 py-1 rounded text-nowrap ${styles[variant]} ${className}`}
       {...props}
     >
       {children}

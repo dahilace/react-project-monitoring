@@ -18,18 +18,18 @@ export const TaskItem = ({ task, onEdit, li }: Props) => {
       onClick={() => {
         if (!window.getSelection()?.toString()) onEdit?.(task);
       }}
-      className={`border p-4 rounded shadow flex flex-col gap-1 bg-gray-100 hover:bg-amber-100 cursor-pointer`}
+      className={`border p-4 rounded shadow flex flex-col gap-2 bg-gray-100 hover:bg-amber-100 cursor-pointer`}
     >
-      <div className="flex justify-between gap-2">
-        <div
-          className={`flex items-center gap-2 ${task.status === 'ended' ? 'text-green-500' : isDateMoreThenNow(task.dateOfEnd) ? 'text-red-500' : 'text-gray-500'}`}
-        >
-          <h2 className="font-semibold">{task.title}</h2>|
-          <span>
-            Дата окончания:{' '}
+      <div
+        className={`flex items-center justify-between gap-4 ${task.status === 'ended' ? 'text-green-500' : isDateMoreThenNow(task.dateOfEnd) ? 'text-red-500' : 'text-gray-500'}`}
+      >
+        <h2 className="font-semibold">{task.title}</h2>
+        <p className="flex flex-wrap justify-end">
+          <span>Дата окончания:&nbsp;</span>
+          <span className="text-nowrap">
             {task.dateOfEnd ? formatDate(task.dateOfEnd, 'ui') : 'Не назначена'}
           </span>
-        </div>
+        </p>
       </div>
 
       <p className="text-sm text-gray-600 line-clamp-1">{task.description}</p>
@@ -45,12 +45,15 @@ export const TaskItem = ({ task, onEdit, li }: Props) => {
         </div>
 
         <div className="flex flex-col items-end">
-          <span className="text-sm ">id:{task.id}</span>
-          <span>
-            Создана: {formatDate(task.dateOfCreation, 'ui')} | {task.creatorId}
-          </span>
+          <p className="text-sm">id:{task.id}</p>
+          <p className="flex flex-wrap justify-end">
+            <span>Создана:&nbsp;</span>
+            <span className="text-nowrap">
+              {formatDate(task.dateOfCreation, 'ui')} | {task.creatorId}
+            </span>
+          </p>
 
-          <AppTag>Ответственный: {task.responsibleId}</AppTag>
+          <AppTag>Ответств.: {task.responsibleId}</AppTag>
         </div>
       </div>
     </Component>

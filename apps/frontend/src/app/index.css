@@ -1,5 +1,11 @@
 @import 'tailwindcss';
-
+:root {
+  --index: calc(1vw + 1vh);
+}
+html,
+body {
+  font-size: clamp(13px, calc(var(--index) * 1.1), 18px);
+}
 button {
   cursor: pointer;
 }

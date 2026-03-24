@@ -43,13 +43,15 @@ export const TasksPage = () => {
       <h1 className="text-2xl font-bold">
         {'Задачи' + (metaTotal ? `: ${metaTotal}` : '')}
       </h1>
-      {tasks.length === 0 ? (
-        <p>Нет задач</p>
-      ) : (
-        tasks.map((task) => (
-          <TaskItem li key={task.id} task={task} onEdit={onEdit}></TaskItem>
-        ))
-      )}
+      <ul className='flex flex-col gap-4'>
+        {tasks.length === 0 ? (
+          <p>Нет задач</p>
+        ) : (
+          tasks.map((task) => (
+            <TaskItem li key={task.id} task={task} onEdit={onEdit}></TaskItem>
+          ))
+        )}
+      </ul>
     </div>
   );
 };
