@@ -12,13 +12,21 @@ type Props = {
 };
 
 export const TaskItem = ({ task, onEdit, li }: Props) => {
+  function handeClick() {
+    if (!window.getSelection()?.toString()) onEdit?.(task);
+  }
+
   const Component = li ? 'li' : 'div';
   return (
     <Component
-      onClick={() => {
-        if (!window.getSelection()?.toString()) onEdit?.(task);
+      tabIndex={0}
+      onClick={() => handeClick()}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          handeClick();
+        }
       }}
-      className={`border p-4 rounded shadow flex flex-col gap-2 bg-gray-100 hover:bg-amber-100 cursor-pointer`}
+      className={`border p-4 rounded shadow flex flex-col gap-2 bg-gray-100 hover:bg-amber-100 focus:bg-amber-50 cursor-pointer`}
     >
       <div
         className={`flex items-center justify-between gap-4 ${task.status === 'ended' ? 'text-green-500' : isDateMoreThenNow(task.dateOfEnd) ? 'text-red-500' : 'text-gray-500'}`}
