@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import { LoadingScreen } from '@/shared/ui/LoadingScreen';
 import { AppHeader } from '@/widgets/header/AppHeader';
 import { AppFooter } from '@/widgets/footer/AppFooter';
 import { AppModal } from '@/shared/ui/AppModal';
@@ -43,11 +44,7 @@ export const App = () => {
   };
 
   if (isAuthLoading) {
-    return (
-      <div className="min-h-screen w-full flex items-center justify-center">
-        Загрузка...
-      </div>
-    );
+    return <LoadingScreen />;
   }
   return (
     <div className="flex flex-col min-h-screen">

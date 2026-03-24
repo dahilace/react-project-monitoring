@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { api } from '@/shared/api/axios';
 import { useOutletContext } from 'react-router-dom';
+import { LoadingScreen } from '@/shared/ui/LoadingScreen';
 
 import { taskGroup } from '@/features/task/utils/TaskGroup';
 import { TaskItem } from '@/entities/task/ui/TaskItem';
@@ -42,7 +43,7 @@ export const TasksPage = () => {
     setRefreshTasks(() => fetchTasks);
   }, []);
 
-  if (loading) return <div>Загрузка...</div>;
+  if (loading) return <LoadingScreen />;
 
   if (error) return <div className="text-red-500">{error}</div>;
 

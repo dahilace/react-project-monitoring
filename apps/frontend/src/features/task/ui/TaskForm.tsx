@@ -65,8 +65,8 @@ export const TaskForm = ({
 
     await taskApi(
       mode,
-      title,
-      description,
+      title.trim(),
+      description.trim(),
       priority,
       status,
       responsibleId,
@@ -90,7 +90,7 @@ export const TaskForm = ({
         placeholder="Заголовок..."
         required
         value={title}
-        onChange={(e) => setTitle(e.target.value.trim())}
+        onChange={(e) => setTitle(e.target.value)}
       >
         Заголовок задачи
       </AppInput>
@@ -100,7 +100,7 @@ export const TaskForm = ({
         required
         placeholder="Описание..."
         value={description}
-        onChange={(e) => setDescription(e.target.value.trim())}
+        onChange={(e) => setDescription(e.target.value)}
       >
         Описание задачи
       </AppInput>
