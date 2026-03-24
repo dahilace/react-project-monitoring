@@ -8,6 +8,16 @@ type Props = {
   onEdit?: (task: ITask) => void;
 };
 
+const taskTagTranslation = {
+  appointed: 'Назначена',
+  started: 'Назначена',
+  ended: 'Закончена',
+  declined: 'Отклонена',
+  high: 'Высокий',
+  standart: 'Обычный',
+  low: 'Низкий',
+};
+
 const tagStyles = `px-2 py-1 rounded`;
 
 export const TaskItem = ({ task, onEdit }: Props) => {
@@ -38,7 +48,7 @@ export const TaskItem = ({ task, onEdit }: Props) => {
               ` ${task.status === 'started' ? 'bg-red-200' : ''} ${task.status === 'ended' ? 'bg-green-200' : ''} ${task.status === 'appointed' ? 'bg-yellow-200' : ''}  ${task.status === 'declined' ? 'bg-gray-200' : ''}`
             }
           >
-            {task.status}
+            {taskTagTranslation[task.status]}
           </span>
           <span
             className={
@@ -46,7 +56,7 @@ export const TaskItem = ({ task, onEdit }: Props) => {
               ` ${task.priority === 'high' ? 'bg-red-200' : ''} ${task.priority === 'low' ? 'bg-green-200' : ''} ${task.priority === 'standart' ? 'bg-yellow-200' : ''}`
             }
           >
-            {task.priority}
+            {taskTagTranslation[task.priority]}
           </span>
         </div>
 
