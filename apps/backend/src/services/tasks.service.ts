@@ -50,9 +50,10 @@ exports.getTasks = async (user, filters, pagination) => {
       where,
       skip,
       take: limit,
-      orderBy: {
-        dateOfCreation: 'desc'
-      },
+      orderBy: [
+        { dateOfUpdate: 'desc' },
+        { dateOfCreation: 'desc' }
+      ],
       include: {
         creator: {
           select: {
