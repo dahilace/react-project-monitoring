@@ -26,12 +26,13 @@ export const LoginPage = () => {
 
       localStorage.setItem('dahilace-token', token);
 
-      navigate('/');
+      setTimeout(() => {
+        navigate('/');
+      }, 0);
     } catch (err: any) {
       setError(err.response?.data?.error || 'Login failed');
     } finally {
       setLoading(false);
-      window.location.reload();
     }
   };
 
@@ -55,6 +56,7 @@ export const LoginPage = () => {
           placeholder="Пароль"
           type="password"
           value={password}
+          onChange={(e) => setPassword(e.target.value.trim())}
           onChange={(e) => setPassword(e.target.value.trim())}
         >
           Пароль

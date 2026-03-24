@@ -46,6 +46,17 @@ export const TasksPage = () => {
 
   if (error) return <div className="text-red-500">{error}</div>;
 
+  if (tasks.length === 0) {
+    return (
+      <div className="max-w-2xl mx-auto flex flex-col gap-4">
+        <h1 className="text-2xl font-bold">
+          {'Задачи' + (metaTotal ? `: ${metaTotal}` : '')}
+        </h1>
+        <p>Нет задач</p>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-4">
       <div className="flex flex-col gap-4">
@@ -58,34 +69,32 @@ export const TasksPage = () => {
           </AppButton>
         </div>
       </div>
+
       <h1 className="text-2xl font-bold">
         {'Задачи' + (metaTotal ? `: ${metaTotal}` : '')}
       </h1>
-      {tasks.length === 0 ? (
-        <p>Нет задач</p>
-      ) : (
-        Object.entries(groupedTasks).map(([group, groupTasks]) => {
-          if (!groupTasks.length) return null;
 
-          return (
-            <div key={group}>
-              <p className="font-bold text-lg mt-4 mb-2">
-                {group === 'today' && 'Сегодня'}
-                {group === 'week' && 'На неделю'}
-                {group === 'future' && 'Будущее'}
-                {group === 'all' && 'Все задачи'}
-                {!['today', 'week', 'future', 'all'].includes(group) && group}
-              </p>
+      {Object.entries(groupedTasks).map(([group, groupTasks]) => {
+        if (!groupTasks.length) return null;
 
-              <ul className="flex flex-col gap-4">
-                {groupTasks.map((task) => (
-                  <TaskItem li key={task.id} task={task} onEdit={onEdit} />
-                ))}
-              </ul>
-            </div>
-          );
-        })
-      )}
+        return (
+          <div key={group}>
+            <p className="font-bold text-lg mt-4 mb-2">
+              {group === 'today' && 'Сегодня'}
+              {group === 'week' && 'На неделю'}
+              {group === 'future' && 'Будущее'}
+              {group === 'all' && 'Все задачи'}
+              {!['today', 'week', 'future', 'all'].includes(group) && group}
+            </p>
+
+            <ul className="flex flex-col gap-4">
+              {groupTasks.map((task) => (
+                <TaskItem li key={task.id} task={task} onEdit={onEdit} />
+              ))}
+            </ul>
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -6,8 +6,6 @@ import type {
 import type { IUser } from '@/entities/user/model/user.types';
 import type { ITask } from '@/entities/task/model/task.types';
 
-export const token = localStorage.getItem('dahilace-token');
-
 export const taskApi = async (
   mode: 'create' | 'edit',
   title: string,
@@ -20,6 +18,8 @@ export const taskApi = async (
   initialData?: ITask,
 ) => {
   if (mode === 'create') {
+    const token = localStorage.getItem('dahilace-token');
+
     await axios.post(
       'http://localhost:3001/api/tasks',
       {
@@ -39,6 +39,8 @@ export const taskApi = async (
   }
 
   if (mode === 'edit' && initialData?.id) {
+    const token = localStorage.getItem('dahilace-token');
+
     await axios.patch(
       `http://localhost:3001/api/tasks/${initialData.id}`,
       {

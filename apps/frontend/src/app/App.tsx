@@ -16,6 +16,7 @@ export const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
   const [refreshTasks, setRefreshTasks] = useState<(() => void) | null>(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   useEffect(() => {
     getMe()
@@ -25,6 +26,9 @@ export const App = () => {
       .catch(() => {
         localStorage.removeItem('dahilace-token');
         setUser(null);
+      })
+      .finally(() => {
+        setIsAuthLoading(false);
       });
   }, []);
 
@@ -38,6 +42,13 @@ export const App = () => {
     setIsModalOpen(true);
   };
 
+  if (isAuthLoading) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center">
+        Загрузка...
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col min-h-screen">
       <AppHeader user={user} onCreateClick={handleCreate} />
