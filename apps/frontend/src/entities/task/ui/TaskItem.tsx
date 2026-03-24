@@ -1,23 +1,15 @@
 import { formatDate } from '@/shared/lib/FormatDate';
 import { isDateMoreThenNow } from '@/shared/lib/isDateMoreThanNow';
+import { taskTagTranslation, taskTagsStyling } from '../model/task.config';
+import { AppTag } from '@/shared/ui/AppTag';
+
 import type { ITask } from '../model/task.types';
 
 type Props = {
   task: ITask;
   onEdit?: (task: ITask) => void;
+  li?: boolean;
 };
-
-const taskTagTranslation = {
-  appointed: 'Назначена',
-  started: 'Назначена',
-  ended: 'Закончена',
-  declined: 'Отклонена',
-  high: 'Высокий',
-  standart: 'Обычный',
-  low: 'Низкий',
-};
-
-const tagStyles = `px-2 py-1 rounded`;
 
 export const TaskItem = ({ task, onEdit }: Props) => {
   return (
@@ -42,23 +34,13 @@ export const TaskItem = ({ task, onEdit }: Props) => {
       <p className="text-sm text-gray-600 line-clamp-1">{task.description}</p>
 
       <div className="flex justify-between items-center gap-2 text-sm mt-2">
-        <div className="flex gap-2">
-          <span
-            className={
-              tagStyles +
-              ` ${task.status === 'started' ? 'bg-red-200' : ''} ${task.status === 'ended' ? 'bg-green-200' : ''} ${task.status === 'appointed' ? 'bg-yellow-200' : ''}  ${task.status === 'declined' ? 'bg-gray-200' : ''}`
-            }
-          >
+        <div className="flex mt-auto gap-2">
+          <AppTag variant={taskTagsStyling[task.status]}>
             {taskTagTranslation[task.status]}
-          </span>
-          <span
-            className={
-              tagStyles +
-              ` ${task.priority === 'high' ? 'bg-red-200' : ''} ${task.priority === 'low' ? 'bg-green-200' : ''} ${task.priority === 'standart' ? 'bg-yellow-200' : ''}`
-            }
-          >
+          </AppTag>
+          <AppTag variant={taskTagsStyling[task.priority]}>
             {taskTagTranslation[task.priority]}
-          </span>
+          </AppTag>
         </div>
 
         <div className="flex flex-col items-end">
@@ -67,7 +49,7 @@ export const TaskItem = ({ task, onEdit }: Props) => {
             Создана: {formatDate(task.dateOfCreation, 'ui')} | {task.creatorId}
           </span>
 
-          <span>Ответственный: {task.responsibleId}</span>
+          <AppTag>Ответственный: {task.responsibleId}</AppTag>
         </div>
       </div>
     </div>

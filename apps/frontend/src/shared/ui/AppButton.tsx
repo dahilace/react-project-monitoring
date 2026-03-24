@@ -11,7 +11,7 @@ export const AppButton = ({
 }: Props) => {
   const baseStyles = 'px-4 py-2 rounded font-medium transition';
 
-  const variants = {
+  const styles = {
     primary: 'bg-blue-500 text-white hover:bg-blue-600',
     secondary: 'bg-gray-200 text-black hover:bg-gray-300',
     danger: 'bg-red-500 text-white hover:bg-red-600',
@@ -19,7 +19,7 @@ export const AppButton = ({
 
   return (
     <button
-      className={`${baseStyles} ${variants[variant]} ${className}`}
+      className={`${baseStyles} ${styles[variant]} ${className}`}
       {...props}
     />
   );
