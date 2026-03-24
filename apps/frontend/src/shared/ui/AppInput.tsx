@@ -9,11 +9,11 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
 export const AppInput = forwardRef<HTMLInputElement, Props>(
   ({ error, className, children, ...props }, ref) => {
     return (
-      <label className="flex flex-col gap-1">
+      <label className="flex flex-col gap-1 ">
         <span className="text-sm">{children}</span>
         <input
           ref={ref}
-          className={`border p-2 rounded ${error ? 'border-red-500' : ''} ${className}`}
+          className={`border p-2 rounded disabled:text-gray-400 disabled:bg-gray-100 ${error ? 'border-red-500' : ''} ${className}`}
           {...props}
         />
         {error && <span className="text-red-500 text-sm">{error}</span>}

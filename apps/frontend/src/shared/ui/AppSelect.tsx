@@ -20,7 +20,7 @@ export const AppSelect = forwardRef<HTMLSelectElement, Props>(
 
         <select
           ref={ref}
-          className={`border p-2 rounded ${
+          className={`border p-2 rounded disabled:text-gray-400 disabled:bg-gray-100 ${
             error ? 'border-red-500' : ''
           } ${className}`}
           {...props}
