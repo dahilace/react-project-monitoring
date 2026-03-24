@@ -52,6 +52,24 @@ exports.getTasks = async (user, filters, pagination) => {
       take: limit,
       orderBy: {
         dateOfCreation: 'desc'
+      },
+      include: {
+        creator: {
+          select: {
+            id: true,
+            name: true,
+            surname: true,
+            login: true
+          }
+        },
+        responsible: {
+          select: {
+            id: true,
+            name: true,
+            surname: true,
+            login: true
+          }
+        }
       }
     }),
     prisma.task.count({ where })
