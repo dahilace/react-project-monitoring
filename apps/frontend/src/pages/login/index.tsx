@@ -31,6 +31,7 @@ export const LoginPage = () => {
       setError(err.response?.data?.error || 'Login failed');
     } finally {
       setLoading(false);
+      window.location.reload();
     }
   };
 
@@ -54,7 +55,6 @@ export const LoginPage = () => {
           placeholder="Пароль"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value.trim())}
           onChange={(e) => setPassword(e.target.value.trim())}
         >
           Пароль

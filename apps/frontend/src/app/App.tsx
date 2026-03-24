@@ -25,6 +25,7 @@ export const App = () => {
       })
       .catch(() => {
         localStorage.removeItem('dahilace-token');
+        setUser(null);
       });
   }, []);
 
