@@ -19,7 +19,7 @@ export const AppButton = ({
 
   return (
     <button
-      className={`${baseStyles} ${styles[variant]} ${className}`}
+      className={`${baseStyles} ${styles[variant]} ${className} disabled:bg-gray-500`}
       {...props}
     />
   );

@@ -20,7 +20,6 @@ export const App = () => {
   useEffect(() => {
     getMe()
       .then((res) => {
-        console.log(res.data);
         setUser(res.data);
       })
       .catch(() => {
