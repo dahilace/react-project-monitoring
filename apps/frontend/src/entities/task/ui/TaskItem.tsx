@@ -1,7 +1,6 @@
 import { formatDate } from '@/shared/lib/FormatDate';
 import { isDateMoreThenNow } from '@/shared/lib/isDateMoreThanNow';
 import type { ITask } from '../model/task.types';
-import { AppButton } from '@/shared/ui/AppButton';
 
 type Props = {
   task: ITask;
@@ -23,7 +22,10 @@ const tagStyles = `px-2 py-1 rounded`;
 export const TaskItem = ({ task, onEdit }: Props) => {
   return (
     <div
-      className={`border p-4 rounded shadow flex flex-col gap-1 bg-gray-100`}
+      onClick={() => {
+        if (!window.getSelection()?.toString()) onEdit?.(task);
+      }}
+      className={`border p-4 rounded shadow flex flex-col gap-1 bg-gray-100 hover:bg-amber-100 cursor-pointer`}
     >
       <div className="flex justify-between gap-2">
         <div
@@ -35,7 +37,6 @@ export const TaskItem = ({ task, onEdit }: Props) => {
             {task.dateOfEnd ? formatDate(task.dateOfEnd, 'ui') : 'Не назначена'}
           </span>
         </div>
-        <AppButton onClick={() => onEdit?.(task)}>Изменить</AppButton>
       </div>
 
       <p className="text-sm text-gray-600 line-clamp-1">{task.description}</p>
