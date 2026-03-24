@@ -43,16 +43,15 @@ export const TaskForm = ({
   const [dateOfEnd, setDateOfEnd] = useState<string | null>('');
 
   useEffect(() => {
-    if (initialData) {
-      setTitle(initialData.title);
-      setDescription(initialData.description);
-      setStatus(initialData.status);
-      setPriority(initialData.priority);
-      setResponsibleId(initialData.responsibleId);
-      setDateOfEnd(
-        initialData.dateOfEnd !== null ? formatDate(initialData.dateOfEnd) : '',
-      );
-    }
+    if (!initialData) return;
+    setTitle(initialData.title);
+    setDescription(initialData.description);
+    setStatus(initialData.status);
+    setPriority(initialData.priority);
+    setResponsibleId(initialData.responsibleId);
+    setDateOfEnd(
+      initialData.dateOfEnd !== null ? formatDate(initialData.dateOfEnd) : '',
+    );
   }, [initialData]);
 
   const handleSubmit = async (e: React.FormEvent) => {
