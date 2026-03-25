@@ -57,7 +57,6 @@ export const LoginPage = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value.trim())}
-          onChange={(e) => setPassword(e.target.value.trim())}
         >
           Пароль
         </AppInput>
@@ -70,7 +69,7 @@ export const LoginPage = () => {
       </form>
 
       <div className="absolute bottom-4 left-4 text-sm bg-gray-100 p-3 rounded shadow">
-        <p className="font-bold mb-1">Демо аккауеты:</p>
+        <p className="font-bold mb-1">Демо аккаунты:</p>
         <p>manager1 / 123</p>
         <p>worker1 / 123</p>
         <p>worker2 / 123</p>
