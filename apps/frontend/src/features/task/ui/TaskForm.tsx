@@ -86,7 +86,9 @@ export const TaskForm = ({
       </p>
 
       <AppInput
-        disabled={mode === 'edit' && user.role === 'worker' && user.id !== creatorId}
+        disabled={
+          mode === 'edit' && user.role === 'worker' && user.id !== creatorId
+        }
         placeholder="Заголовок..."
         required
         value={title}
@@ -96,7 +98,9 @@ export const TaskForm = ({
       </AppInput>
 
       <AppInput
-        disabled={mode === 'edit' && user.role === 'worker' && user.id !== creatorId}
+        disabled={
+          mode === 'edit' && user.role === 'worker' && user.id !== creatorId
+        }
         required
         placeholder="Описание..."
         value={description}
@@ -106,7 +110,9 @@ export const TaskForm = ({
       </AppInput>
 
       <AppSelect
-        disabled={mode === 'edit' && user.role === 'worker' && user.id !== creatorId}
+        disabled={
+          mode === 'edit' && user.role === 'worker' && user.id !== creatorId
+        }
         label="Приоритет задачи"
         value={priority}
         onChange={(e) => setPriority(e.target.value as TaskPriority)}
@@ -121,7 +127,9 @@ export const TaskForm = ({
       />
 
       <AppInput
-        disabled={mode === 'edit' && user.role === 'worker' && user.id !== creatorId}
+        disabled={
+          mode === 'edit' && user.role === 'worker' && user.id !== creatorId
+        }
         placeholder="Выберите дату"
         type="date"
         value={dateOfEnd ?? ''}

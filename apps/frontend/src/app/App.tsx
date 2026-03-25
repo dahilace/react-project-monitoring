@@ -50,7 +50,7 @@ export const App = () => {
     <div className="flex flex-col min-h-screen">
       <AppHeader user={user} onCreateClick={handleCreate} />
 
-      <main className="flex-1 p-4">
+      <main className="flex-1 py-16 px-4">
         <Outlet context={{ onEdit: handleEdit, setRefreshTasks, user }} />
       </main>
 

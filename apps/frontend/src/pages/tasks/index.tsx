@@ -3,7 +3,7 @@ import { api } from '@/shared/api/axios';
 import { useOutletContext } from 'react-router-dom';
 import { LoadingScreen } from '@/shared/ui/LoadingScreen';
 
-import { taskGroup } from '@/features/task/utils/TaskGroup';
+import { taskGroup } from '@/features/task/utils/taskGroup';
 import { TaskItem } from '@/entities/task/ui/TaskItem';
 import { AppButton } from '@/shared/ui/AppButton';
 
@@ -59,28 +59,44 @@ export const TasksPage = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto flex flex-col gap-4">
-      <div className="flex flex-col gap-4">
-        <p className="font-semibold">Сортировка:</p>
+    <div className="max-w-2xl mx-auto flex flex-col gap-2">
+      <div>
+        <h1 className="text-3xl font-bold">Задачи</h1>
+        <p className="text-sm font-medium mt-1">
+          {'Всего' + (metaTotal ? `: ${metaTotal}` : '')}
+        </p>
+      </div>
+      <hr />
+      <div className="flex flex-col gap-2">
+        <p className="font-medium">Группировка:</p>
         <div className="flex gap-2">
-          <AppButton onClick={() => setViewMode('none')}>Все</AppButton>
-          <AppButton onClick={() => setViewMode('byDate')}>По дате</AppButton>
-          <AppButton onClick={() => setViewMode('byResponsible')}>
+          <AppButton
+            isActive={viewMode === 'none'}
+            onClick={() => setViewMode('none')}
+          >
+            Все
+          </AppButton>
+          <AppButton
+            isActive={viewMode === 'byDate'}
+            onClick={() => setViewMode('byDate')}
+          >
+            По дате
+          </AppButton>
+          <AppButton
+            isActive={viewMode === 'byResponsible'}
+            onClick={() => setViewMode('byResponsible')}
+          >
             По ответственным
           </AppButton>
         </div>
       </div>
-
-      <h1 className="text-2xl font-bold">
-        {'Задачи' + (metaTotal ? `: ${metaTotal}` : '')}
-      </h1>
 
       {Object.entries(groupedTasks).map(([group, groupTasks]) => {
         if (!groupTasks.length) return null;
 
         return (
           <div key={group}>
-            <p className="font-bold text-lg mt-4 mb-2">
+            <p className="font-semibold text-xl mt-4 mb-4">
               {group === 'today' && 'Сегодня'}
               {group === 'week' && 'На неделю'}
               {group === 'future' && 'Будущее'}
