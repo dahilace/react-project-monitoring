@@ -21,7 +21,7 @@ export const taskApi = async (
     const token = localStorage.getItem('dahilace-token');
 
     await axios.post(
-      'http://localhost:3001/api/tasks',
+      'https://dahilass.ru/api-node/api/tasks',
       {
         title,
         description,
@@ -42,7 +42,7 @@ export const taskApi = async (
     const token = localStorage.getItem('dahilace-token');
 
     await axios.patch(
-      `http://localhost:3001/api/tasks/${initialData.id}`,
+      `https://dahilass.ru/api-node/api/tasks/${initialData.id}`,
       {
         title,
         description,

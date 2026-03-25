@@ -1,6 +1,6 @@
 export const taskTagTranslation = {
   appointed: 'Назначена',
-  started: 'Назначена',
+  started: 'Начата',
   ended: 'Закончена',
   declined: 'Отклонена',
   high: 'Высокий',

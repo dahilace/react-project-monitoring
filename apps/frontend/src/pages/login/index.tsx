@@ -17,7 +17,7 @@ export const LoginPage = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:3001/api/auth/login', {
+      const res = await axios.post('https://dahilass.ru/api-node/api/auth/login', {
         login,
         password,
       });
