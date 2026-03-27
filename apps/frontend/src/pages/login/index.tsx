@@ -18,8 +18,8 @@ export const LoginPage = () => {
 
     try {
       const res = await axios.post('https://dahilass.ru/api-node/api/auth/login', {
-        login,
-        password,
+        login: login.trim().toLowerCase(),
+        password: password,
       });
 
       const token = res.data.token;
@@ -47,7 +47,7 @@ export const LoginPage = () => {
         <AppInput
           placeholder="Логин"
           value={login}
-          onChange={(e) => setLogin(e.target.value.trim())}
+          onChange={(e) => setLogin(e.target.value)}
         >
           Логин
         </AppInput>
@@ -56,7 +56,7 @@ export const LoginPage = () => {
           placeholder="Пароль"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value.trim())}
+          onChange={(e) => setPassword(e.target.value)}
         >
           Пароль
         </AppInput>
