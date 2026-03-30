@@ -26,7 +26,7 @@ async function main() {
       name: 'Worker11',
       surname: 'One',
       login: 'worker1',
-      password: await hashPassword('123'),
+      password: await hashPassword('1234'),
       role: UserRole.worker,
       managerId: manager1.id,
     },
@@ -37,7 +37,7 @@ async function main() {
       name: 'Worker12',
       surname: 'Two',
       login: 'worker2',
-      password: await hashPassword('123'),
+      password: await hashPassword('12345'),
       role: UserRole.worker,
       managerId: manager1.id,
     },
@@ -48,7 +48,7 @@ async function main() {
       name: 'Manager2',
       surname: 'Two',
       login: 'manager2',
-      password: await hashPassword('123'),
+      password: await hashPassword('abc'),
       role: UserRole.manager,
     },
   })
@@ -58,13 +58,11 @@ async function main() {
       name: 'Worker21',
       surname: 'Three',
       login: 'worker3',
-      password: await hashPassword('123'),
+      password: await hashPassword('def'),
       role: UserRole.worker,
       managerId: manager2.id,
     },
   })
-
-  console.log({ manager1, worker11, worker12, manager2, worker21 })
 }
 
 main()
