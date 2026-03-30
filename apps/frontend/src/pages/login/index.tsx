@@ -4,6 +4,7 @@ import { AppButton } from '@/shared/ui/AppButton';
 import { useNavigate } from 'react-router-dom';
 import { loginApi } from '@/shared/api/axios';
 import { demoAccs } from '@/entities/login/login.config';
+import { AppForm } from '@/shared/ui/AppForm';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -26,7 +27,6 @@ export const LoginPage = () => {
         navigate('/');
       }, 0);
     } catch (err: any) {
-      console.log(err);
       setError(
         err.response?.data?.error || 'Неверный пользователь и/или пароль',
       );
@@ -37,14 +37,7 @@ export const LoginPage = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="w-80 p-6 bg-white shadow-lg rounded-2xl flex flex-col gap-5 border border-gray-100"
-      >
-        <h1 className="text-2xl font-semibold text-center text-gray-800">
-          Авторизация
-        </h1>
-
+      <AppForm title="Авторизация" onSubmit={handleSubmit}>
         <AppInput
           placeholder="Логин"
           value={login}
@@ -66,10 +59,10 @@ export const LoginPage = () => {
           Пароль
         </AppInput>
 
-        <AppButton type="submit" disabled={loading} className='mt-4'>
+        <AppButton type="submit" disabled={loading} className="mt-4">
           {loading ? 'Загрузка...' : 'Войти'}
         </AppButton>
-      </form>
+      </AppForm>
 
       <div
         className="absolute bottom-4 left-4 w-64 
