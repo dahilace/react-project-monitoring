@@ -5,6 +5,7 @@ import type {
 } from '@/entities/task/model/task.types';
 import type { IUser } from '@/entities/user/model/user.types';
 import type { ITask } from '@/entities/task/model/task.types';
+import { URL } from '@/shared/utils/vars';
 
 export const taskApi = async (
   mode: 'create' | 'edit',
@@ -21,7 +22,7 @@ export const taskApi = async (
     const token = localStorage.getItem('dahilace-token');
 
     await axios.post(
-      'https://dahilass.ru/api-node/api/tasks',
+      URL + '/tasks',
       {
         title,
         description,
@@ -42,7 +43,7 @@ export const taskApi = async (
     const token = localStorage.getItem('dahilace-token');
 
     await axios.patch(
-      `https://dahilass.ru/api-node/api/tasks/${initialData.id}`,
+      `${URL}/tasks/${initialData.id}`,
       {
         title,
         description,

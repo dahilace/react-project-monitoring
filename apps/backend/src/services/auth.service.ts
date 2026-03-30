@@ -14,13 +14,13 @@ exports.login = async (login, password) => {
   })
 
   if (!user) {
-    throw new Error('User not found')
+    throw new Error('Пользователь не найден')
   }
 
   const isValid = await bcrypt.compare(password, user.password)
 
   if (!isValid) {
-    throw new Error('Invalid password')
+    throw new Error('Неверный пароль')
   }
 
   const token = jwt.sign(
