@@ -37,7 +37,11 @@ export const LoginPage = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <AppForm title="Авторизация" onSubmit={handleSubmit}>
+      <AppForm
+        className="max-w-90"
+        title="Авторизация"
+        onSubmit={handleSubmit}
+      >
         <AppInput
           placeholder="Логин"
           value={login}
