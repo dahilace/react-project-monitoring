@@ -1,4 +1,5 @@
 import { useEffect, type ReactNode } from 'react';
+import { CloseButton } from './CloseButton';
 
 type Props = {
   isOpen: boolean;
@@ -22,16 +23,11 @@ export const AppModal = ({ isOpen, onClose, children }: Props) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-1000 w-full"
+      className="fixed inset-0 bg-black/50 flex z-1000 w-full"
       onClick={onClose}
     >
-      <div
-        className="relative"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button className="absolute top-3 right-4 p-2" onClick={onClose}>
-          X
-        </button>
+      <div className="relative m-auto max-w-120 w-full p-4" onClick={(e) => e.stopPropagation()}>
+        <CloseButton className="absolute top-6 right-6" onClick={onClose} />
         {children}
       </div>
     </div>
