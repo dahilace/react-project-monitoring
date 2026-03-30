@@ -10,6 +10,7 @@ import { taskPriorityOptions } from '../config/task.config';
 import { taskStatusOptions } from '../config/task.config';
 import { formatDate } from '@/shared/lib/FormatDate';
 import { taskApi } from '../api/task.api';
+import { AppForm } from '@/shared/ui/AppForm';
 
 import type { IUser, UserRole } from '@/entities/user/model/user.types';
 import type { ITask } from '@/entities/task/model/task.types';
@@ -80,11 +81,10 @@ export const TaskForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-      <p className="text-lg font-semibold">
-        {mode === 'create' ? 'Создать задачу' : 'Изменить задачу'}
-      </p>
-
+    <AppForm
+      title={mode === 'create' ? 'Создать задачу' : 'Изменить задачу'}
+      onSubmit={handleSubmit}
+    >
       <AppInput
         disabled={
           mode === 'edit' && user.role === 'worker' && user.id !== creatorId
@@ -158,6 +158,6 @@ export const TaskForm = ({
       <AppButton type="submit">
         {mode === 'create' ? 'Создать' : 'Обновить'}
       </AppButton>
-    </form>
+    </AppForm>
   );
 };
