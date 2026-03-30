@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { AppInput } from '@/shared/ui/AppInput';
 import { AppButton } from '@/shared/ui/AppButton';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { loginApi } from '@/shared/api/axios';
+import { demoAccs } from '@/entities/login/login.config';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -17,37 +18,40 @@ export const LoginPage = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post('https://dahilass.ru/api-node/api/auth/login', {
-        login: login.trim().toLowerCase(),
-        password: password,
-      });
-
+      const res = await loginApi(login, password);
       const token = res.data.token;
-
       localStorage.setItem('dahilace-token', token);
 
       setTimeout(() => {
         navigate('/');
       }, 0);
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Login failed');
+      console.log(err);
+      setError(
+        err.response?.data?.error || 'Неверный пользователь и/или пароль',
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <form
         onSubmit={handleSubmit}
-        className="w-80 p-6 border rounded flex flex-col gap-4"
+        className="w-80 p-6 bg-white shadow-lg rounded-2xl flex flex-col gap-5 border border-gray-100"
       >
-        <h1 className="text-xl font-bold text-center">Авторизация</h1>
+        <h1 className="text-2xl font-semibold text-center text-gray-800">
+          Авторизация
+        </h1>
 
         <AppInput
           placeholder="Логин"
           value={login}
           onChange={(e) => setLogin(e.target.value)}
+          error={
+            error === 'Пользователь не найден' ? 'Пользователь не найден' : null
+          }
         >
           Логин
         </AppInput>
@@ -57,25 +61,37 @@ export const LoginPage = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          error={error === 'Неверный пароль' ? 'Неверный пароль' : null}
         >
           Пароль
         </AppInput>
 
-        {error && <span className="text-red-500 text-sm">{error}</span>}
-
-        <AppButton type="submit" disabled={loading}>
-          {loading ? 'Loading...' : 'Login'}
+        <AppButton type="submit" disabled={loading} className='mt-4'>
+          {loading ? 'Загрузка...' : 'Войти'}
         </AppButton>
       </form>
 
-      <div className="absolute bottom-4 left-4 text-sm bg-gray-100 p-3 rounded shadow">
-        <p className="font-bold mb-1">Демо аккаунты:</p>
-        <p>manager1 / 123</p>
-        <p>worker1 / 123</p>
-        <p>worker2 / 123</p>
-        <hr />
-        <p>manager2 / 123</p>
-        <p>worker3 / 123</p>
+      <div
+        className="absolute bottom-4 left-4 w-64 
+                bg-white/80 backdrop-blur-md 
+                border border-gray-200
+                p-4 rounded-xl shadow-lg
+                text-sm text-gray-700"
+      >
+        <p className="font-semibold text-gray-800 mb-2">Демо аккаунты:</p>
+        <ul>
+          {demoAccs.map((acc, i) => (
+            <li
+              key={i}
+              className="grid grid-cols-[1fr_auto_1fr] justify-items-start gap-1"
+            >
+              <span className="font-medium text-gray-600 col-start-1">
+                {acc.login}
+              </span>
+              <span className="text-gray-800 col-start-3">{acc.password}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
